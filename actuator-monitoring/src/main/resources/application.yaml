@@ -1,3 +1,43 @@
 spring:
   application:
     name: actuator-monitoring
+
+# Configuration Spring Boot Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        # Exposer tous les endpoints (ou spécifier: health,metrics,env,info,etc.)
+        include: "*"
+      base-path: /actuator
+  endpoint:
+    health:
+      # Afficher les détails de santé même si l'application est DOWN
+      show-details: always
+      # Activer les groupes de santé personnalisés
+      show-components: always
+    metrics:
+      enabled: true
+    env:
+      enabled: true
+    info:
+      enabled: true
+  health:
+    # Activer les groupes de santé personnalisés
+    groups:
+      custom:
+        include: "*"
+    # Activer les checks de santé spécifiques
+    diskspace:
+      enabled: true
+    db:
+      enabled: false
+  metrics:
+    # Exporter les métriques vers Prometheus
+    export:
+      prometheus:
+        enabled: true
+    # Tags communs pour toutes les métriques
+    tags:
+      application: ${spring.application.name}
+      environment: development
