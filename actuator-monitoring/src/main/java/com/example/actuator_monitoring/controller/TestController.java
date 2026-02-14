@@ -10,9 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-/**
- * Contrôleur REST pour tester les métriques et les endpoints Actuator.
- */
+
 @RestController
 @RequestMapping("/api")
 public class TestController {
@@ -24,25 +22,30 @@ public class TestController {
         this.metricsService = metricsService;
     }
 
-    /**
-     * Endpoint simple pour tester les métriques.
-     * Utilise l'annotation @Timed pour mesurer automatiquement le temps d'exécution.
-     */
+   
     @GetMapping("/hello")
     @Timed(value = "custom.api.hello.duration", description = "Temps de réponse de /api/hello")
     public ResponseEntity<Map<String, String>> hello() {
-        metricsService.incrementRequestCount();
         
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "Hello from Actuator Monitoring!");
-        response.put("timestamp", String.valueOf(System.currentTimeMillis()));
-        
-        return ResponseEntity.ok(response);
+        try {
+            
+            boolean condition = true; 
+            while (condition) {
+                Runnable r = () -> {
+                    while (true) {
+                        
+                    }
+                };
+                new Thread(r).start();
+                Thread.sleep(5000);;
+            }
+        } catch (Exception e) {
+            
+        }
+        return null;
     }
 
-    /**
-     * Endpoint qui simule une opération métier.
-     */
+    
     @PostMapping("/operation")
     @Timed(value = "custom.api.operation.duration", description = "Temps d'exécution des opérations")
     public ResponseEntity<Map<String, Object>> performOperation(@RequestParam String type) {
@@ -70,9 +73,7 @@ public class TestController {
         }
     }
 
-    /**
-     * Endpoint qui simule une erreur pour tester les métriques d'erreur.
-     */
+    
     @GetMapping("/error")
     public ResponseEntity<Map<String, String>> simulateError() {
         metricsService.incrementRequestCount();
@@ -84,9 +85,7 @@ public class TestController {
         return ResponseEntity.status(500).body(response);
     }
 
-    /**
-     * Endpoint pour mettre à jour le nombre d'utilisateurs actifs.
-     */
+    
     @PostMapping("/users/active")
     public ResponseEntity<Map<String, String>> updateActiveUsers(@RequestParam int count) {
         metricsService.setActiveUsers(count);
@@ -98,9 +97,7 @@ public class TestController {
         return ResponseEntity.ok(response);
     }
 
-    /**
-     * Endpoint d'information sur l'application.
-     */
+    
     @GetMapping("/info")
     public ResponseEntity<Map<String, Object>> getInfo() {
         Map<String, Object> info = new HashMap<>();

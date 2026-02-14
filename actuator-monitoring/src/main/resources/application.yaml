@@ -32,12 +32,12 @@ management:
       enabled: true
     db:
       enabled: false
-  metrics:
-    # Exporter les métriques vers Prometheus
-    export:
-      prometheus:
-        enabled: true
-    # Tags communs pour toutes les métriques
-    tags:
-      application: ${spring.application.name}
-      environment: development
+  # metrics:
+  #   # Exporter les métriques vers Prometheus
+  #   export:
+  #     prometheus:
+  #       enabled: true
+  #   # Tags communs pour toutes les métriques
+  #   tags:
+  #     application: ${spring.application.name}
+  #     environment: development
